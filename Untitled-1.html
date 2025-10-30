@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historia del Feminismo: Flora Tristán</title>
+    <!-- Carga de Tailwind CSS --><script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary': '#9333ea', // Morado Intenso
+                        'secondary': '#facc15', // Amarillo para acentos
+                        'text-dark': '#1f2937', // Gris Oscuro
+                        'text-light': '#f9fafb', // Gris Muy Claro
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+        
+        /* Estilo base del contenido */
+        #content-display p {
+            margin-bottom: 1rem;
+            line-height: 1.75;
+        }
+
+        /* Estilo para simular el humor/tono especial */
+        #content-display .humor-note {
+            font-style: italic;
+            color: #6b7280; /* Gris medio */
+            display: block;
+            margin-top: -0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        /* Estilo para citas destacadas */
+        #content-display .quote {
+            border-left: 4px solid #facc15;
+            padding-left: 1rem;
+            margin: 1.5rem 0;
+            font-style: italic;
+            background-color: #fefce8; /* Amarillo claro */
+        }
+        
+        #content-display ul {
+             margin-left: 1.5rem;
+             list-style-type: disc;
+        }
+        
+        /* Estilo para el punto de verificación */
+        .check-point h3 {
+            margin-top: 2rem;
+            font-weight: 700;
+            color: #9333ea;
+            font-size: 1.5rem;
+            border-top: 1px solid #e5e7eb;
+            padding-top: 1rem;
+        }
+
+        /* Estilos para los placeholders autocontenidos (sustituyen a las imágenes externas) */
+        .placeholder-img {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 250px; /* Altura consistente para los placeholders */
+            border-radius: 0.75rem;
+            margin: 1.5rem auto;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-align: center;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        .placeholder-img.text-dark {
+            color: #1f2937;
+        }
+
+        /* Transición de las tarjetas de navegación */
+        .nav-card {
+            transition: all 0.3s ease-in-out;
+        }
+        .nav-card.active {
+            background-color: #9333ea;
+            color: white;
+            transform: scale(1.05);
+            box-shadow: 0 10px 15px -3px rgba(147, 51, 234, 0.4), 0 4px 6px -2px rgba(147, 51, 234, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans min-h-screen p-4 sm:p-8 flex justify-center">
+
+    <div class="max-w-5xl w-full">
+        <header class="text-center mb-10 p-6 bg-card rounded-xl shadow-lg border-b-4 border-primary">
+            <h1 class="text-4xl sm:text-5xl font-extrabold text-text-dark">
+                El Legado de Flora Tristán
+            </h1>
+            <p class="text-gray-500 mt-2 text-lg">
+                Una narrativa interactiva sobre capacidad, historia y el resurgimiento feminista.
+            </p>
+        </header>
+
+        <!-- Contenedor de Navegación (Tarjetas) --><div id="navigation-cards" class="grid grid-cols-2 sm:grid-cols-5 gap-4 mb-8">
+            <!-- Las tarjetas de navegación se insertarán aquí por JavaScript --></div>
+
+        <!-- Contenedor Principal de Contenido --><div class="bg-white p-6 sm:p-10 rounded-xl shadow-2xl border-t-8 border-primary/50">
+            <h2 id="content-title" class="text-3xl font-bold text-primary mb-4 border-b pb-2"></h2>
+            <div id="content-display" class="text-text-dark text-lg leading-relaxed">
+                <p class="text-center text-gray-500 italic">Selecciona una sección en la parte superior para comenzar la lectura.</p>
+            </div>
+            
+            <!-- Botones de navegación (para dispositivos móviles) --><div class="flex justify-between mt-6 pt-4 border-t">
+                <button id="prev-btn" class="bg-gray-300 text-text-dark font-semibold py-2 px-4 rounded-lg hover:bg-gray-400 transition duration-300 disabled:opacity-50" disabled>
+                    &#9664; Anterior
+                </button>
+                <button id="next-btn" class="bg-primary text-white font-semibold py-2 px-4 rounded-lg hover:bg-primary/90 transition duration-300 disabled:opacity-50">
+                    Siguiente &#9654;
+                </button>
+            </div>
+        </div>
+
+        <!-- Pie de Página (Footer) añadido para completar la estructura de la aplicación -->
+        <footer class="mt-8 text-center text-gray-500 text-sm p-4">
+            <p>&copy; 2025 Lectura Interactiva. Todos los derechos reservados.</p>
+            <p class="mt-1">Diseño adaptativo con Tailwind CSS y contenido autocontenido.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Función para revelar las respuestas del quiz
+        function revealAnswer(partId) {
+            const answerDiv = document.getElementById(`answer-${partId}`);
+            const button = document.getElementById(`btn-${partId}`);
+            if (answerDiv.classList.contains('hidden')) {
+                answerDiv.classList.remove('hidden');
+                button.textContent = 'Ocultar la Clave';
+                button.classList.replace('bg-secondary', 'bg-primary');
+                button.classList.replace('text-text-dark', 'text-white');
+            } else {
+                answerDiv.classList.add('hidden');
+                button.textContent = 'Mostrar la Clave';
+                button.classList.replace('bg-primary', 'bg-secondary');
+                button.classList.replace('text-white', 'text-text-dark');
+            }
+        }
+
+        // Datos extraídos directamente del guion de Markdown
+        const narrativeData = [
+            {
+                id: 'parte-1',
+                title: '⚙ Parte 1 – El Frente Industrial (1939-1945)',
+                icon: '⚙',
+                content: `
+                    <p class="humor-note">(La necesidad como motor de cambio)</p>
+                    <p>La Segunda Guerra Mundial no solo fue un conflicto de soldados; fue una **guerra de producción**. Con 16 millones de hombres fuera en EE. UU. y millones más en Europa, el colapso industrial era inminente. La única solución fue convocar al <strong>ejército laboral femenino</strong>.</p>
+                    <!-- Placeholder autocontenido que sustituye a la imagen externa para evitar bloqueos del cortafuegos -->
+                    <div class="placeholder-img bg-primary">Rosie The Riveter & Fábrica (Imagen Ilustrativa)</div>
+                    <p>Millones de mujeres, muchas por primera vez, entraron en sectores de alta complejidad: ingeniería aeronáutica, metalurgia, y construcción de buques. En EE. UU., la fuerza laboral femenina creció un 50%.  En la producción de aeronaves, la ocupación femenina pasó del 7% en 1935 al **40% en 1944**.</p>
+                    <p>El mensaje histórico fue claro: las mujeres no "sustituyeron" a los hombres, sino que **mantuvieron la economía global** en pie, demostrando una capacidad técnica y logística que la sociedad pre-bélica había negado rotundamente.</p>
+                    <p>Si la historia fuera una empresa, el informe de eficiencia post-guerra habría dicho: "Las mujeres no son solo viables; son la columna vertebral de la productividad."</p>
+                `
+            },
+            {
+                id: 'parte-2',
+                title: '💪 Parte 2 – El Gran Quiebre y la Resistencia',
+                icon: '💪',
+                content: `
+                    <p>Llega 1945 y el mundo se enfrenta al **Gran Dilema**: ¿Qué hacer con estas mujeres empoderadas? La consigna oficial de los gobiernos, respaldada por una intensa propaganda, fue el "Regreso al Hogar".</p>
+                    <!-- Placeholder autocontenido que sustituye a la imagen externa para evitar bloqueos del cortafuegos -->
+                    <div class="placeholder-img bg-secondary text-text-dark">Regreso al Hogar (Imagen Ilustrativa)</div>
+                    <p>El objetivo era simple: restaurar el orden social pre-guerra, donde el hombre era el único proveedor y la mujer el ama de casa. Se les pidió que cambiaran sus herramientas por delantales, y sus salarios por la dependencia.</p>
+                    <p class="humor-note">(Pero la puerta del auto ya estaba abierta)</p>
+                    <p>Sin embargo, la experiencia de la independencia económica (ganar un cheque propio) y el orgullo por la capacidad demostrada era un veneno dulce. Las mujeres habían adquirido una **conciencia de sí mismas** como agentes de cambio y productoras de valor.</p>
+                    <p>Esta resistencia a ser confinadas de nuevo, esta necesidad de mantener su estatus y su independencia, se convierte en la fuerza impulsora del resurgimiento feminista.</p>
+                `
+            },
+            {
+                id: 'parte-3',
+                title: '🌹 Parte 3 – Flora Tristán: La Arquitecta del Argumento (1843)',
+                icon: '🌹',
+                content: `
+                    <p>Aquí es donde el pasado se encuentra con el presente. Mucho antes, la activista franco-peruana **Flora Tristán** (1803–1844) ya había trazado el mapa de esta lucha. Influenciada por las ideas del socialismo utópico (Saint-Simon, Fourier), su obra clave es **La Unión Obrera** (1843).</p>
+                    <!-- Placeholder: Se cambia a 'text-light' para asegurar contraste con el fondo oscuro -->
+                    <div class="placeholder-img bg-green-700 h-96 w-4/6 mx-auto text-light">Retrato Flora Tristán (Imagen Ilustrativa)</div>
+                    <p>Flora vio una conexión vital que nadie más veía: los trabajadores nunca serían libres mientras sus propias compañeras fueran esclavas legales y económicas. Ella fue la primera en exigir:</p>
+                    <ul class="list-disc ml-6 space-y-2 text-text-dark">
+                        <li>**Derecho de Instrucción (Educación):** Acceso libre a todo el conocimiento.</li>
+                        <li>**Derecho al Divorcio y Propiedad:** Para asegurar su autonomía legal.</li>
+                        <li>**Unión Universal:** La organización de todos los oprimidos (hombres obreros + mujeres).</li>
+                    </ul>
+                    <div class="quote">
+                        <p>«La ley que esclaviza a la mujer y la priva de instrucción os oprime también a vosotros, hombres proletarios. Sois pobres porque la mujer está envilecida.»</p>
+                    </div>
+                    <p class="humor-note">(¡Un argumento que explota cien años después!)</p>
+                    <p>Su tesis de que la liberación de la mujer es la clave de la liberación social se convirtió, un siglo después de su muerte, en el marco intelectual que legitimó las demandas de las mujeres post-guerra.</p>
+                `
+            },
+            {
+                id: 'parte-4',
+                title: '🌍 Parte 4 – El Resurgimiento y el Legado',
+                icon: '🌍',
+                content: `
+                    <p>El feminismo de posguerra (la Segunda Ola) no fue un invento de la noche a la mañana; fue la unión de la **práctica** (la capacidad demostrada en las fábricas) y la **teoría** (el marco de Flora Tristán).</p>
+                    <!-- Placeholder autocontenido que sustituye a la imagen externa para evitar bloqueos del cortafuegos -->
+                    <div class="placeholder-img bg-red-600">Marcha por la Igualdad (Imagen Ilustrativa)</div>
+                    <p>Las demandas de la época resonaron con los escritos de Tristán: se pedía igualdad salarial (economía), acceso a universidades y profesiones (instrucción), y reformas legales sobre el matrimonio y la propiedad (autonomía).</p>
+                    <p>La sociedad no pudo negar la capacidad que acababa de salvarla. La **deuda moral** de la guerra, combinada con el argumento histórico de Tristán, creó una presión imparable. Fue el momento en que la estructura social de Occidente comenzó a ceder.</p>
+
+                    <div class="check-point">
+                        <h3>🧠 Punto de Verificación Histórica:</h3>
+                        <p>¿Qué factor, generado por la Segunda Guerra Mundial, convirtió las demandas feministas en una "deuda moral" ineludible para la sociedad?</p>
+                        <button onclick="revealAnswer('4')" id="btn-4" class="bg-secondary text-text-dark font-bold py-2 px-4 rounded-lg hover:bg-secondary/80 transition duration-300">Mostrar la Clave</button>
+                        <div id="answer-4" class="hidden mt-4 p-4 rounded-lg border-l-4 border-primary bg-primary/10">
+                            <p><strong>Respuesta:</strong> La **demostración de la capacidad productiva femenina** en el Frente Industrial. Habiendo sostenido la economía en la crisis más grave, la sociedad ya no podía argumentar honestamente que la mujer carecía de capacidad o merecimiento para la igualdad de derechos.</p>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 'parte-5',
+                title: '🌟 Final – La Conclusión Imparable',
+                icon: '🌟',
+                content: `
+                    <p class="humor-note">(El resultado inevitable)</p>
+                    <p>La línea de tiempo es perfecta:</p>
+                    <ul class="list-disc ml-6 space-y-2 text-text-dark">
+                        <li>**1843:** Flora Tristán escribe el **'Por qué'** (La mujer y el obrero deben unirse).</li>
+                        <li>**1939–1945:** La Guerra produce el **'Cómo'** (La mujer demuestra su capacidad total).</li>
+                        <li>**1945 en adelante:** El feminismo se convierte en el **'Ahora'** (Demanda de derechos basada en hechos).</li>
+                    </ul>
+                    <!-- Placeholder autocontenido que sustituye a la imagen externa para evitar bloqueos del cortafuegos -->
+                    <div class="placeholder-img bg-gray-600">Sufragistas Históricas (Imagen Ilustrativa)</div>
+                    <p>El feminismo resurgió con una fuerza imparable porque tenía la historia, la lógica y la evidencia económica de su lado. El legado de Tristán y la fuerza de las fábricas nos recuerdan que la lucha por la igualdad siempre ha sido una lucha por la verdad y el reconocimiento.</p>
+                    <p>¡Gracias por leer y por verificar tus conocimientos! 😎</p>
+                `
+            }
+        ];
+
+        // Referencias del DOM
+        const navigationCards = document.getElementById('navigation-cards');
+        const contentTitle = document.getElementById('content-title');
+        const contentDisplay = document.getElementById('content-display');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        
+        let currentIndex = -1; // -1 indica estado inicial (sin contenido)
+
+        function renderNavigation() {
+            navigationCards.innerHTML = '';
+            narrativeData.forEach((item, index) => {
+                const card = document.createElement('button');
+                card.id = item.id + '-card';
+                card.className = 'nav-card bg-white p-4 rounded-lg shadow-md hover:shadow-lg text-text-dark flex flex-col items-center text-center focus:outline-none';
+                card.innerHTML = `<span class="text-3xl mb-1">${item.icon}</span><span class="text-xs font-semibold uppercase">${item.title.split(' – ')[1] || item.title}</span>`;
+                card.onclick = () => showContent(index);
+                navigationCards.appendChild(card);
+            });
+        }
+
+        function showContent(index) {
+            if (index < 0 || index >= narrativeData.length) return;
+            
+            currentIndex = index;
+            const data = narrativeData[index];
+
+            // 1. Actualizar el contenido principal
+            contentTitle.textContent = data.title;
+            contentDisplay.innerHTML = data.content;
+
+            // 2. Actualizar las tarjetas de navegación
+            document.querySelectorAll('.nav-card').forEach((card, idx) => {
+                card.classList.remove('active');
+                if (idx === index) {
+                    card.classList.add('active');
+                }
+            });
+
+            // 3. Actualizar botones de navegación
+            prevBtn.disabled = index === 0;
+            nextBtn.disabled = index === narrativeData.length - 1;
+        }
+
+        function navigate(direction) {
+            let newIndex = currentIndex + direction;
+            showContent(newIndex);
+        }
+
+        // Asignar eventos a los botones de navegación
+        prevBtn.onclick = () => navigate(-1);
+        nextBtn.onclick = () => navigate(1);
+
+        // Inicialización
+        window.onload = function() {
+            renderNavigation();
+            // Mostrar el primer elemento automáticamente al cargar
+            showContent(0);
+        }
+    </script>
+</body>
+</html>
+
